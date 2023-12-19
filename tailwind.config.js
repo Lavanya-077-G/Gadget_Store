@@ -1,0 +1,16 @@
+module.exports = {
+    content: [
+      './src/**/*.{js,ts,jsx,tsx}',
+      './public/index.html',
+    ],
+    theme: {
+      extend: {
+        colors: {
+          red: '#ff0000',
+          white: '#ffffff',
+        },
+      },
+    },
+    plugins: [],
+  };
+  

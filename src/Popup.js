@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { closePopup } from './actions/index';
 
 const Popup = ({ message, onClose }) => {
   return (
@@ -12,6 +14,15 @@ const Popup = ({ message, onClose }) => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+    message: state.popupMessage,
+    showPopup: state.showPopup,
+  });
+  
+  const mapDispatchToProps = {
+    onClose: closePopup,
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Popup);
 
-export default Popup;
 

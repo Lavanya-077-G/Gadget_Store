@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { addToCart } from '../actions';
 
 const ProductCard = ({ product, addToCart }) => {
 
@@ -21,5 +23,10 @@ const ProductCard = ({ product, addToCart }) => {
   );
 };
 
-export default ProductCard;
+const mapDispatchToProps = {
+  addToCart,
+};
+
+export default connect(null, mapDispatchToProps)(ProductCard);
+
 

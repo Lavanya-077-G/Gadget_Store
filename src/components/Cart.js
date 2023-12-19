@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { removeFromCart } from '../actions';
+import { connect } from 'react-redux';
 const Cart = ({ cartItems, removeFromCart }) => {
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price, 0).toFixed(2);
@@ -40,8 +41,15 @@ const Cart = ({ cartItems, removeFromCart }) => {
     </div>
   );
 };
-
-export default Cart;
+const mapStateToProps = (state) => ({
+    cartItems: state.cartItems,
+  });
+  
+  const mapDispatchToProps = {
+    removeFromCart,
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 
 
 

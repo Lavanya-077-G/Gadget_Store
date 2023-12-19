@@ -5,55 +5,40 @@ import ProductList from './components/ProductList';
 import ProductDetails from './components/ProductDetails';
 import Cart from './components/Cart';
 import Popup from './Popup';
+import { closePopup } from './actions';
+import { connect } from 'react-redux';
 
 
-function App() {
-  const [cartItems, setCartItems] = useState([]);
-  const [popupMessage, setPopupMessage] = useState('');
-  const [showPopup, setShowPopup] = useState(false);
 
-  const addToCart = (item) => {
-    setCartItems((prevItems) => [...prevItems, item]);
-    setPopupMessage(`${item.name} added to the cart!`);
-    setShowPopup(true);
-
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
-  };
-
-  const removeFromCart = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
-
-  const closePopup = () => {
-    setShowPopup(false);
-  };
-
+function App({showPopup}) {
   return (
+  
     <Router>
       <div className="App">
         <Navbar />
         <main className="container mx-auto my-4">
          <Routes>
-         <Route exact path="/" element={<ProductList addToCart={addToCart}/>}  />
+         <Route exact path="/" element={<ProductList />}  />
          {/* <Route exact path="/items/:id" element={<ProductDetails/>} /> */}
-         <Route exact path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} />} />
+         <Route exact path="/cart" element={<Cart />} />
          
         </Routes>
         </main>
         {showPopup && (
-          <Popup message={popupMessage} onClose={closePopup} />
+          <Popup />
         )}
       </div>
     </Router>
   );
 }
+const mapStateToProps = (state) => ({
+  showPopup: state.showPopup,
+  cartItems: state.cartItems,
+});
 
-export default App;
+const mapDispatchToProps = {
+  onClose: closePopup,
+};
 
-
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
